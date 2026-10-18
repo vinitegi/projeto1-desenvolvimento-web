@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Contas do Mês')}"></head>
+<body>
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('contas')}"></aside>
+
+    <main class="conteudo">
+        <h2>Contas do Mês</h2>
+        <p class="descricao">Controle das contas e despesas mensais.</p>
+
+        <div class="alerta" th:if="${erro}" th:text="${erro}"></div>
+
+        <section class="card">
+            <h3 th:text="${editando} ? 'Editar cadastro' : 'Novo cadastro'">Novo cadastro</h3>
+            <form th:action="@{/contas/salvar}" th:object="${conta}" method="post">
+                <input type="hidden" name="editando" th:value="${editando}">
+
+                <div class="campos">
+                    <div class="campo">
+                        <label for="id">ID</label>
+                        <input type="text" th:field="*{id}" readonly placeholder="Automático">
+                    </div>
+                    <div class="campo">
+                        <label for="descricao">Descrição</label>
+                        <input type="text" th:field="*{descricao}">
+                        <small class="erro" th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></small>
+                    </div>
+                    <div class="campo">
+                        <label for="valor">Valor</label>
+                        <input type="number" step="0.01" th:field="*{valor}">
+                        <small class="erro" th:if="${#fields.hasErrors('valor')}" th:errors="*{valor}"></small>
+                    </div>
+                    <div class="campo">
+                        <label for="dtCadastro">Data de Cadastro</label>
+                        <input type="date" th:field="*{dtCadastro}">
+                        <small class="erro" th:if="${#fields.hasErrors('dtCadastro')}" th:errors="*{dtCadastro}"></small>
+                    </div>
+                </div>
+
+                <div class="botoes">
+                    <a class="btn" th:href="@{/contas}">Limpar</a>
+                    <button class="btn primario" type="submit">Salvar</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="card">
+            <h3>Registros</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Descrição</th>
+                    <th class="num">Valor</th>
+                    <th>Data de Cadastro</th>
+                    <th class="acoes">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="c : ${lista}">
+                    <td th:text="${#numbers.formatInteger(c.id, 3)}"></td>
+                    <td th:text="${c.descricao}"></td>
+                    <td class="num" th:text="'R$ ' + ${#numbers.formatDecimal(c.valor, 1, 'POINT', 2, 'COMMA')}"></td>
+                    <td th:text="${#temporals.format(c.dtCadastro, 'dd/MM/yyyy')}"></td>
+                    <td class="acoes">
+                        <a class="link" th:href="@{/contas/editar/{id}(id=${c.id})}">Editar</a>
+                        <form class="inline" th:action="@{/contas/excluir/{id}(id=${c.id})}" method="post"
+                              onsubmit="return confirm('Excluir este registro?')">
+                            <button class="link perigo" type="submit">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(lista)}">
+                    <td colspan="5" class="vazio">Nenhum registro cadastrado.</td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>
+</body>
+</html>

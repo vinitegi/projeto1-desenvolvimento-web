@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<!-- Cabecalho comum a todas as telas -->
+<head th:fragment="head(titulo)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${titulo} + ' — Sistema de Gestão'">Sistema de Gestão</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<!-- Menu lateral reutilizavel: o parametro "ativo" destaca a tela atual -->
+<aside class="menu" th:fragment="menu(ativo)">
+    <div class="menu-topo">
+        <h1>Sistema de Gestão</h1>
+        <p>Cadastros</p>
+    </div>
+
+    <nav>
+        <span class="grupo">Módulo Web</span>
+        <a th:href="@{/funcionarios}" th:classappend="${ativo == 'funcionarios'} ? 'ativo'">Funcionários</a>
+        <a th:href="@{/contas}" th:classappend="${ativo == 'contas'} ? 'ativo'">Contas do Mês</a>
+
+        <span class="grupo">Módulo API / Catálogo</span>
+        <a th:href="@{/veiculos}" th:classappend="${ativo == 'veiculos'} ? 'ativo'">Veículos</a>
+        <a th:href="@{/servicos}" th:classappend="${ativo == 'servicos'} ? 'ativo'">Serviços</a>
+    </nav>
+
+    <p class="rodape">Projeto universitário</p>
+</aside>
+
+</body>
+</html>

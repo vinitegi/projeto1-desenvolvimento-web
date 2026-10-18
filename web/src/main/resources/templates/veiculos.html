@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Veículos')}"></head>
+<body>
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('veiculos')}"></aside>
+
+    <main class="conteudo">
+        <h2>Veículos</h2>
+        <p class="descricao">Catálogo de veículos disponíveis.</p>
+
+        <div class="alerta" th:if="${erro}" th:text="${erro}"></div>
+
+        <section class="card">
+            <h3 th:text="${editando} ? 'Editar cadastro' : 'Novo cadastro'">Novo cadastro</h3>
+            <form th:action="@{/veiculos/salvar}" th:object="${veiculo}" method="post">
+                <input type="hidden" name="editando" th:value="${editando}">
+
+                <div class="campos">
+                    <div class="campo">
+                        <label for="placa">Placa</label>
+                        <input type="text" th:field="*{placa}" th:readonly="${editando}" placeholder="ABC1D23">
+                        <small class="erro" th:if="${#fields.hasErrors('placa')}" th:errors="*{placa}"></small>
+                    </div>
+                    <div class="campo">
+                        <label for="modelo">Modelo</label>
+                        <input type="text" th:field="*{modelo}">
+                        <small class="erro" th:if="${#fields.hasErrors('modelo')}" th:errors="*{modelo}"></small>
+                    </div>
+                    <div class="campo">
+                        <label for="marca">Marca</label>
+                        <input type="text" th:field="*{marca}">
+                        <small class="erro" th:if="${#fields.hasErrors('marca')}" th:errors="*{marca}"></small>
+                    </div>
+                    <div class="campo">
+                        <label for="anoModelo">Ano do Modelo</label>
+                        <input type="number" th:field="*{anoModelo}">
+                        <small class="erro" th:if="${#fields.hasErrors('anoModelo')}" th:errors="*{anoModelo}"></small>
+                    </div>
+                    <div class="campo">
+                        <label for="anoFabricacao">Ano de Fabricação</label>
+                        <input type="number" th:field="*{anoFabricacao}">
+                        <small class="erro" th:if="${#fields.hasErrors('anoFabricacao')}" th:errors="*{anoFabricacao}"></small>
+                    </div>
+                    <div class="campo">
+                        <label for="cor">Cor</label>
+                        <input type="text" th:field="*{cor}">
+                        <small class="erro" th:if="${#fields.hasErrors('cor')}" th:errors="*{cor}"></small>
+                    </div>
+                    <div class="campo">
+                        <label for="preco">Preço</label>
+                        <input type="number" step="0.01" th:field="*{preco}">
+                        <small class="erro" th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}"></small>
+                    </div>
+                </div>
+
+                <div class="botoes">
+                    <a class="btn" th:href="@{/veiculos}">Limpar</a>
+                    <button class="btn primario" type="submit">Salvar</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="card">
+            <h3>Registros</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>Placa</th>
+                    <th>Modelo</th>
+                    <th>Marca</th>
+                    <th>Ano Modelo</th>
+                    <th>Ano Fab.</th>
+                    <th>Cor</th>
+                    <th class="num">Preço</th>
+                    <th class="acoes">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="v : ${lista}">
+                    <td th:text="${v.placa}"></td>
+                    <td th:text="${v.modelo}"></td>
+                    <td th:text="${v.marca}"></td>
+                    <td th:text="${v.anoModelo}"></td>
+                    <td th:text="${v.anoFabricacao}"></td>
+                    <td th:text="${v.cor}"></td>
+                    <td class="num" th:text="'R$ ' + ${#numbers.formatDecimal(v.preco, 1, 'POINT', 2, 'COMMA')}"></td>
+                    <td class="acoes">
+                        <a class="link" th:href="@{/veiculos/editar/{placa}(placa=${v.placa})}">Editar</a>
+                        <form class="inline" th:action="@{/veiculos/excluir/{placa}(placa=${v.placa})}" method="post"
+                              onsubmit="return confirm('Excluir este registro?')">
+                            <button class="link perigo" type="submit">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(lista)}">
+                    <td colspan="8" class="vazio">Nenhum registro cadastrado.</td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>
+</body>
+</html>

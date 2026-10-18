@@ -1,0 +1,133 @@
+/* Layout limpo e minimalista, no estilo do prototipo */
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    color: #1f2933;
+    background: #f5f6f8;
+}
+
+.app { display: flex; min-height: 100vh; }
+
+/* ---------- Menu lateral ---------- */
+.menu {
+    width: 250px;
+    flex-shrink: 0;
+    background: #fff;
+    border-right: 1px solid #e3e6ea;
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+.menu-topo h1 { font-size: 18px; margin: 0 8px 2px; }
+.menu-topo p { margin: 0 8px 20px; font-size: 13px; color: #6b7785; }
+.menu .grupo {
+    display: block;
+    margin: 18px 8px 6px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #8a94a0;
+}
+.menu nav a {
+    display: block;
+    padding: 9px 12px;
+    border-radius: 8px;
+    color: #1f2933;
+    text-decoration: none;
+    font-size: 14px;
+}
+.menu nav a:hover { background: #f0f2f5; }
+.menu nav a.ativo { background: #e8eefc; color: #1f4fd8; font-weight: 600; }
+.menu .rodape { margin: auto 8px 0; font-size: 12px; color: #8a94a0; }
+
+/* ---------- Conteudo ---------- */
+.conteudo { flex: 1; min-width: 0; padding: 32px 40px; max-width: 1100px; }
+.conteudo h2 { margin: 0 0 4px; font-size: 24px; }
+.descricao { margin: 0 0 24px; color: #6b7785; }
+
+.card {
+    background: #fff;
+    border: 1px solid #e3e6ea;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+}
+.card h3 { margin: 0 0 16px; font-size: 16px; }
+
+.alerta {
+    background: #fdecea;
+    border: 1px solid #f5c2bd;
+    color: #8a1c13;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+/* ---------- Formulario ---------- */
+.campos { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.campo label { display: block; margin-bottom: 6px; font-size: 13px; color: #52606d; }
+.campo input {
+    width: 100%;
+    padding: 9px 11px;
+    border: 1px solid #cdd3da;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    background: #fff;
+}
+.campo input:focus { outline: 2px solid #c7d6fb; border-color: #1f4fd8; }
+.campo input[readonly] { background: #f0f2f5; color: #6b7785; }
+.erro { display: block; margin-top: 4px; font-size: 12px; color: #c0392b; }
+
+.botoes { margin-top: 20px; display: flex; gap: 10px; }
+.btn {
+    display: inline-block;
+    padding: 9px 20px;
+    border: 1px solid #cdd3da;
+    border-radius: 6px;
+    background: #fff;
+    color: #1f2933;
+    font-size: 14px;
+    font-family: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+.btn:hover { background: #f0f2f5; }
+.btn.primario { background: #1f4fd8; border-color: #1f4fd8; color: #fff; }
+.btn.primario:hover { background: #1a43b8; }
+
+/* ---------- Tabela ---------- */
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #e3e6ea; }
+th { background: #f5f6f8; font-weight: 600; color: #52606d; font-size: 13px; }
+td.num, th.num { text-align: right; }
+td.acoes, th.acoes { text-align: right; white-space: nowrap; }
+td.vazio { text-align: center; color: #8a94a0; padding: 24px; }
+
+.link {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-left: 12px;
+    font-size: 14px;
+    font-family: inherit;
+    color: #1f4fd8;
+    text-decoration: none;
+    cursor: pointer;
+}
+.link:hover { text-decoration: underline; }
+.link.perigo { color: #c0392b; }
+form.inline { display: inline; }
+
+@media (max-width: 800px) {
+    .app { flex-direction: column; }
+    .menu { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid #e3e6ea; }
+    .conteudo { padding: 20px 16px; }
+    .card { overflow-x: auto; }
+}

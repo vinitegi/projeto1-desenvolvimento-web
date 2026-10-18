@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Funcionários')}"></head>
+<body>
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('funcionarios')}"></aside>
+
+    <main class="conteudo">
+        <h2>Funcionários</h2>
+        <p class="descricao">Cadastro de funcionários da empresa.</p>
+
+        <div class="alerta" th:if="${erro}" th:text="${erro}"></div>
+
+        <section class="card">
+            <h3 th:text="${editando} ? 'Editar cadastro' : 'Novo cadastro'">Novo cadastro</h3>
+            <form th:action="@{/funcionarios/salvar}" th:object="${funcionario}" method="post">
+                <input type="hidden" name="editando" th:value="${editando}">
+
+                <div class="campos">
+                    <div class="campo">
+                        <label for="cpf">CPF</label>
+                        <input type="text" th:field="*{cpf}" th:readonly="${editando}" placeholder="000.000.000-00">
+                        <small class="erro" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></small>
+                    </div>
+                    <div class="campo">
+                        <label for="nome">Nome</label>
+                        <input type="text" th:field="*{nome}">
+                        <small class="erro" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></small>
+                    </div>
+                    <div class="campo">
+                        <label for="salario">Salário</label>
+                        <input type="number" step="0.01" th:field="*{salario}">
+                        <small class="erro" th:if="${#fields.hasErrors('salario')}" th:errors="*{salario}"></small>
+                    </div>
+                </div>
+
+                <div class="botoes">
+                    <a class="btn" th:href="@{/funcionarios}">Limpar</a>
+                    <button class="btn primario" type="submit">Salvar</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="card">
+            <h3>Registros</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>CPF</th>
+                    <th>Nome</th>
+                    <th class="num">Salário</th>
+                    <th class="acoes">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="f : ${lista}">
+                    <td th:text="${f.cpf}"></td>
+                    <td th:text="${f.nome}"></td>
+                    <td class="num" th:text="'R$ ' + ${#numbers.formatDecimal(f.salario, 1, 'POINT', 2, 'COMMA')}"></td>
+                    <td class="acoes">
+                        <a class="link" th:href="@{/funcionarios/editar/{cpf}(cpf=${f.cpf})}">Editar</a>
+                        <form class="inline" th:action="@{/funcionarios/excluir/{cpf}(cpf=${f.cpf})}" method="post"
+                              onsubmit="return confirm('Excluir este registro?')">
+                            <button class="link perigo" type="submit">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(lista)}">
+                    <td colspan="4" class="vazio">Nenhum registro cadastrado.</td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>
+</body>
+</html>
