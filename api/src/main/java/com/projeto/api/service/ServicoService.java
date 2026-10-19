@@ -20,7 +20,7 @@ public class ServicoService {
     public Servico findOne(Integer idServico){
         return _servicoRepository.findById(idServico)
                 .orElseThrow(() ->
-                        new IllegalArgumentException("Serviço não encontrado. Id: " + idServico));
+                        new NotFoundException("Serviço não encontrado. Id: " + idServico));
     }
 
     public List<Servico> listAll(){
