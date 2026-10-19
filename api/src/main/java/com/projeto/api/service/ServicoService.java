@@ -37,7 +37,7 @@ public class ServicoService {
     }
 
     public void delete(Integer idServico){
-        Servico servico = findOne(idServico);
+        findOne(idServico);
 
         _servicoRepository.deleteById(idServico);
     }

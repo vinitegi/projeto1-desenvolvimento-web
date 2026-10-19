@@ -42,7 +42,7 @@ public class VeiculoService {
     }
 
     public void delete(String placa){
-        Veiculo veiculo = findOne(placa);
+        findOne(placa);
 
         _veiculoRepository.deleteById(placa);
     }
