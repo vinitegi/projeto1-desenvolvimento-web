@@ -10,7 +10,7 @@ INSERT INTO veiculo (placa, modelo, marca, ano_modelo, ano_fabricacao, cor, prec
             2024, 2025, 'prata', 5000000.00);
 INSERT INTO veiculo (placa, modelo, marca, ano_modelo, ano_fabricacao, cor, preco)
 VALUES ('DCD-7745', 'Jeep', 'Honda',
-        2005, 2005, 'prata', 60000.00);
+        2005, 2005, 'azul', 60000.00);
 INSERT INTO veiculo (placa, modelo, marca, ano_modelo, ano_fabricacao, cor, preco)
 VALUES ('XZY-8801', 'Fusca', 'Volkswagen',
-        1870, 1878, 'prata', 80000.00);
+        1870, 1878, 'preto', 80000.00);
