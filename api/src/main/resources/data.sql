@@ -1,9 +1,9 @@
-INSERT INTO servico (id, descricao, dt_cadastro)
-    VALUES (1, 'Limpeza externa e interna', '2026-10-13');
-INSERT INTO servico (id, descricao, dt_cadastro)
-    VALUES (2, 'Trocar pneus', '2026-10-15');
-INSERT INTO servico (id, descricao, dt_cadastro)
-    VALUES (3, 'Trocar óleo do motor', '2026-10-24');
+INSERT INTO servico (descricao, dt_cadastro)
+    VALUES ('Limpeza externa e interna', '2026-10-13');
+INSERT INTO servico (descricao, dt_cadastro)
+    VALUES ('Trocar pneus', '2026-10-15');
+INSERT INTO servico (descricao, dt_cadastro)
+    VALUES ('Trocar óleo do motor', '2026-10-24');
 
 INSERT INTO veiculo (placa, modelo, marca, ano_modelo, ano_fabricacao, cor, preco)
     VALUES ('ABC-2345', 'SmartCar 24', 'Tesla',

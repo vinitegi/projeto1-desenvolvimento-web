@@ -3,6 +3,8 @@ package com.projeto.api.controller;
 import com.projeto.api.model.Servico;
 import com.projeto.api.service.ServicoService;
 import java.util.List;
+
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +16,7 @@ public class ServiceController {
     private ServicoService _servicoService;
 
     @PostMapping(ENDPOINT)
-    public void createServico(Servico servico){
+    public void createServico(@Valid @RequestBody Servico servico){
         _servicoService.create(servico);
     }
 
@@ -29,7 +31,7 @@ public class ServiceController {
     }
 
     @PutMapping(ENDPOINT + "/{id}")
-    public void updateServico(@PathVariable("id") Integer id, Servico servico){
+    public void updateServico(@PathVariable("id") Integer id, @Valid @RequestBody Servico servico){
         _servicoService.update(id, servico);
     }
 

@@ -2,6 +2,7 @@ package com.projeto.api.controller;
 
 import com.projeto.api.model.Veiculo;
 import com.projeto.api.service.VeiculoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,7 @@ public class VeiculoController {
     private VeiculoService _veiculoService;
 
     @PostMapping(ENDPOINT)
-    public void createVeiculo(Veiculo veiculo){
+    public void createVeiculo(@Valid @RequestBody Veiculo veiculo){
         _veiculoService.create(veiculo);
     }
 
@@ -30,7 +31,7 @@ public class VeiculoController {
     }
 
     @PutMapping(ENDPOINT + "/{placa}")
-    public void updateVeiculo(@PathVariable("placa") String placa, Veiculo veiculo){
+    public void updateVeiculo(@PathVariable("placa") String placa, @Valid @RequestBody Veiculo veiculo){
         _veiculoService.update(placa, veiculo);
     }
 
